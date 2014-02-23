@@ -42,20 +42,22 @@ nrodic(Rod, Dit) :- partneri(Rod, P), rodic(P, Dit).
 nmatka(Mat, Dit) :- nrodic(Mat, Dit), zena(Mat).
 
 % Os a Sour jsou nevlastni sourozenci, tzn maji spolecneho nevlastniho rodice
-nsourozenec(Os, Sour) :- nrodic(R, Os), nrodic(R, Sour).
+nsourozenec(Os, Sour) :- nrodic(R, Os), nrodic(R, Sour), Os \= Sour.
 
 % Os a Brat jsou nevlastnimi bratry
 nbratr(Os, Brat) :- nsourozenec(Os, Brat), muz(Brat).
 
 % Sv je nevlastním svagrem Os
 nsvagr(Sv, Os) :- partneri(Os, P), nbratr(P, Sv).
-nsvagr(Sv, Os) :- nsourozenec(Os, Sour), partneri(Sour, Sv).
+nsvagr(Sv, Os) :- nsourozenec(Os, Sour), partneri(Sour, Sv), muz(Sv).
+% třetí definice je podle wikipedie jen "podle nekterych zdroju" a v tomto pribehu nehraje roli
 
 % Zet je zetem Osoby
 nzet(Zet, Os) :- muz(Zet), partneri(Zet, Manzelka), zena(Manzelka), nrodic(Os, Manzelka).
 
 % Stryc je strycem Osoby
 nstryc(Stryc, Os) :- nrodic(R, Os), nbratr(R, Stryc).
+nstryc(Stryc, Os) :- nrodic(R, Os), nsourozenec(R, S), partneri(S, Stryc), muz(Stryc).
 
 %%%%%%% Pravidve dotazy z pribehu %%%%%%%
 % rodic(mujOtec, ja).
