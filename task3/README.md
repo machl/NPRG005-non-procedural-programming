@@ -1,4 +1,5 @@
 ﻿﻿###zplosteni.prolog###
+
 Definujte predikát `zplosteni/2`, který vrátí seznam "listů" zadaného vstupního seznamu.
 
 ```

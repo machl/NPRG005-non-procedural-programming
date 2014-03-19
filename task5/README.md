@@ -1,4 +1,5 @@
 ﻿###spirala.prolog###
+
 `spirala(+Matice,-Seznam)` :- Do seznamu poskládá prvky Matice tak, jak leží na spirále (Matice je seznam řádků, řádek je seznam prvků tohoto řádku).
 
 ```
@@ -11,8 +12,8 @@ Můžete předpokládat, že (obdélníková) matice je zadána korektně, tj. v
 ###gen.prolog###
 Definujte predikát `gen(+Seznam, +H, -Vyraz)`, který
 
-obdrží seznam `N0,…,Nk`  a hodnotu H, obojí z množiny {true,false}
-zjistí, zdali existuje seznam operátorů op1,…,opk  z množiny {and,or} takový, že (vhodně uzávorkovaný) výraz `N0 op1 N1op2… opk Nk` má hodnotu `H`
+obdrží seznam `N0,…,Nk`  a hodnotu `H`, obojí z množiny `{true,false}`
+zjistí, zdali existuje seznam operátorů `op1,…,opk`  z množiny `{and,or}` takový, že (vhodně uzávorkovaný) výraz `N0 op1 N1op2… opk Nk` má hodnotu `H`
 pokud taková posloupnost operátorů existuje, vrátí (postupně) všechny takové výrazy tvořené konstantami `true`, `false`, operátory `and`, `or` a závorkami
 pokud taková posloupnost operátorů neexistuje, vrátí false
 
