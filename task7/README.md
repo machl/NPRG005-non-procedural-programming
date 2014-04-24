@@ -1,12 +1,12 @@
-###
+### mobily.scm
 ```
-                                                | 
+                                               | 
                                            1   |   3 
-                                        ------------ 
-                                       |            2  |  8 
-                                    (10)       ------------
-                                                 |               | 
-                                              (15)          (5) 
+                                         ------------ 
+                                         |      2  |  8 
+                                        (10)  ------------
+                                               |        |
+                                              (15)     (5) 
  
 ```
 na obrázku představují lanka, na nichž visí buďto objekt se zadanou váhou, nebo tyčka (označená jako ---),
