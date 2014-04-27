@@ -3,11 +3,8 @@
 
 import Data.Char
 
--- caesar n slovo
--- prevede slovo na ceaserovskou sifru s posunem n
+-- caesar n slovo - prevede slovo na ceaserovskou sifru s posunem n
 -- funguje i na zaporna n
--- pismenne abecedy jsou dlouhe 2x24
--- cislicova abeceda je dlouha 10
 -- prevedi mala pismena, velka pismena a cislice
 -- ostatni znaky necha jak jsou
 -- pr:
@@ -20,26 +17,10 @@ import Data.Char
 caesar :: Int -> String -> String
 
 -- prazdna slova jsou trivialni
-caesar n ([]) = []
+caesar _ [] = []
 
--- na jednoznakovy string vrati jeho adekvatni posun
--- a vraci ho jako string
--- nepouziva shift, ale vlastnosti modulo aritmetiky
----- m := delka posunovane abecedy
----- y := offset abecedy
----- z := v pripade neposunovaneho znaku anuluje efekt y
-caesar n (x:[]) = [chr (((((ord x) - y) + n) `mod` m) + y - z)]
-        where y | (isLower x) = ord 'a'
-                | (isUpper x) = ord 'A'
-                | (isDigit x) = ord '0'
-                | True = n
-
-              m | (isAlpha x) = 24
-                | (isDigit x) = 10
-                | True = 9999999
-
-              z | ((isAlpha x) || (isDigit x)) = 0
-                | True = y
-
--- na viceznakove slovo se rekurzivne deli
-caesar n (x:xs) = (caesar n [x]) ++ (caesar n xs)
+-- slozena slova vzniknou rotaci prvniho znaku a rekurzivne se zbytekem slova
+caesar n (x:xs) | (isLower x) = [chr (((((ord x) - (ord 'a')) + n) `mod` ((ord 'z') - (ord 'a') + 1)) + (ord 'a'))] ++ (caesar n xs)
+                | (isUpper x) = [chr (((((ord x) - (ord 'A')) + n) `mod` ((ord 'Z') - (ord 'A') + 1)) + (ord 'A'))] ++ (caesar n xs)
+                | (isDigit x) = [chr (((((ord x) - (ord '0')) + n) `mod` ((ord '9') - (ord '0') + 1)) + (ord '0'))] ++ (caesar n xs)
+                | True        = [x] ++ (caesar n xs)
