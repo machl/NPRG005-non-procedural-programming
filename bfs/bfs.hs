@@ -21,6 +21,11 @@ edgesOf = snd
 -- sample graph - vertices index from 0
 -- graph is tuple of 1) list of values; 2) list of list of neighbours
 -- graph must be valid!
+--           3 <----+
+--           ^      |
+--           |      |
+--           v      |
+--   5 <---> 1 ---> 2 ---> 4 <---> 0
 sampleG :: Graph
 sampleG = ( ["a0", "b1", "c2", "d3", "e4", "f5"], [ [4], [2,3,5], [3,4], [1], [0], [1] ])
 
