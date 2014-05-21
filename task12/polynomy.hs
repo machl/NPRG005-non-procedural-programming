@@ -1,8 +1,9 @@
 --- 12. ukol - #1 (polynomy) ---
 --- Petr Belohlavek ---
 
+-- reprezenatace polynomu - seznam, kde
+-- pol!!i == k      <==>     v polynomu je clen k*x^i
 type Polynom = [Double]
-
 polA = [1.0, 3.0, 0.0]                   -- 1 + 3x + 0x^2
 polB = [0.0, 0.0, 1.0, 1.0, -6.0]        -- x^2 +  x^3 - 6x^4le
 polC = [0.0, 0.0, 1.0, 4.0, -3.0, -18.0] -- x^2 + 4x^3 - 3x^4 - 18x^5
@@ -34,7 +35,7 @@ pminus p q = pkanonizuj $ p `pplus` ((-1) `pskal` q)
 -- secte vsechny polynomy
 -- > psum [polA, polB, polC]
 psum :: [Polynom] -> Polynom
-psum p = pkanonizuj $ foldl pplus [] p
+psum ps = pkanonizuj $ foldl pplus [] ps
 
 -- vynasobi dva polynomy
 -- > polA `pkrat` polB
@@ -46,7 +47,7 @@ pkrat p q = psum $ map (\ (x, i) -> (take i [0,0..]) ++ (x `pskal` p)) (zip q [0
 -- > polD `pdeleno` polA
 pdeleno :: Polynom -> Polynom -> (Polynom, Polynom)
 pdeleno p q | kanq == []                = error "Deleni nulou"                          -- deleni prazdnym polynomem (nulou)
-            | kanp == []                = ([], [])                                      -- trivialni deleni prazdenoho polynomu
+            | kanp == []                = ([], [])                                      -- trivialni deleni prazdneoho polynomu
             | length kanp < length kanq = ([], kanp)                                    -- uz neni co delit, vrati zbytek
             | otherwise                 = (mezi `pplus` (fst rekur), snd rekur)         -- to co vyslo z jednoho kroku deleni + rekurzivne na zbytek
                         where kanp      = pkanonizuj p                                  -- kanonizovane p
@@ -57,4 +58,4 @@ pdeleno p q | kanq == []                = error "Deleni nulou"                  
                               mezi      = (take d [0,0..]) ++ [(fst nejp) / (fst nejq)] -- mezivysledek, ktery se ma prictist
                               odec      = mezi `pkrat` kanq                             -- standardni skolni algoritmus - toto odecitame od p
                               zbyva     = kanp `pminus` odec                            -- odecteme
-                              rekur     = zbyva `pdeleno` kanq
+                              rekur     = zbyva `pdeleno` kanq                          -- rekurzivne se spusti na zbytek
